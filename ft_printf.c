@@ -6,34 +6,49 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:58:57 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/10 16:11:56 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/11 12:01:04 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "ft_printf.h"
 
-int	ft_printf(char const *str, ...)
+void	ft_format(va_list ap, char *str, size_t *counter)
 {
-	va_list	pa;
+	if (*str == '\0')
+		return ;
+	else if (*str == '%')
+		ft_putchar_ft('%', counter);
+	else if (*str == 'c')
+		ft_putchar_ft(va_arg(ap, int), counter);
+	else if (*str == 's')
+		ft_putstr_ft(va_arg(ap, char *), counter);
+	else if (*str == 'p')
+		ft_putptr_ft(va_arg(ap, void *), counter);
+}
+
+
+int	ft_printf(char const *format, ...)
+{
+	va_list	ap;
 	size_t	counter;
 
-	if (!str)
-		return (NULL);
+	if (!format)
+		return (-1);
 	counter = 0;
-	va_start(pa, str);
-	while (*str)
+	va_start(ap, format);
+	while (*format)
 	{
-		if (*str == '%')
+		if (*format == '%')
 		{
-			str++;
-			ft_format(pa, (char *)str, &counter);
+			format++;
+			ft_format(ap, (char *)format, &counter);
 		}
 		else
 		{
-			ft_putchar(*str, &counter);
+			ft_putchar_ft(*format, &counter);
 		}
-		str++;
+		format++;
 	}
-	va_end(pa);
+	va_end(ap);
 	return (counter);
 }
