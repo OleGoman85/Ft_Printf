@@ -6,7 +6,7 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:58:57 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/11 12:01:04 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/13 06:46:05 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_format(va_list ap, char *str, size_t *counter)
 	else if (*str == 'p')
 		ft_putptr_ft(va_arg(ap, void *), counter);
 }
-
 
 int	ft_printf(char const *format, ...)
 {

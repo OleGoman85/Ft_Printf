@@ -6,7 +6,7 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 07:18:33 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/11 11:30:32 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/13 08:28:57 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ int	ft_putchar_ft(char c, size_t *counter)
 	else
 		return (EOF);
 }
-

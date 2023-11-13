@@ -6,61 +6,46 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:08:28 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/11 12:08:55 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/13 14:57:35 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putptr_pf(void *ptr, size_t *counter)
+static void	print_hex_digit(int digit, size_t *counter)
 {
-    
-}
+	char	hex_char;
 
-Да, `unsigned long long int ptr_value = 0x123456789ABCDEF;` представляет собой шестнадцатеричное число. Обозначение `0x` в начале значения указывает на то, что число представлено в шестнадцатеричной системе счисления. В данном случае, `0x123456789ABCDEF` - это 64-битное беззнаковое целое число в шестнадцатеричной системе.
-
-Разложим это число:
-
-- `0x` - префикс для указания на шестнадцатеричное представление.
-- `123456789ABCDEF` - 15 знаков шестнадцатеричной цифры.
-
-Это число в шестнадцатеричной системе представляет собой большое 64-битное значение. Вы можете использовать его для тестирования вашей функции `ft_convert_p`, чтобы убедиться, что она правильно обрабатывает указатели и выводит их в шестнадцатеричной форме.
-
-`return (3);` в данном контексте используется для указания, сколько символов было выведено функцией `ft_convert_p`, когда передан указатель со значением `0`. Давайте разберем, почему именно `3`.
-
-1. `"0x"`: Это префикс, который всегда будет выведен, когда указатель не равен `0`. Этот префикс состоит из двух символов.
-
-2. `"0"`: Это само значение указателя, которое в данном случае равно `0`. Это один символ.
-
-Итак, `2 (префикс) + 1 (значение указателя) = 3`. Таким образом, функция возвращает `3` для указания, что было выведено три символа ("0x0").
-
-
-void	ft_putptr_pf(void *ptr, size_t *counter)
-{
-	char			*str;
-	unsigned long	ptr_address;
-
-	ptr_address = (unsigned long)ptr;
-	ft_putstr_pf("0x", counter);
-	str = ft_aux_pf(ptr_address, HEX_LOW_BASE);
-	ft_putstr_pf(str, counter);
-	free(str);
-}
-
-int	ft_convert_p(va_list arg)
-{
-	unsigned long long int	ln;
-	int						len;
-
-	len = 0;
-	ln = va_arg(arg, unsigned long long int);
-	if (ln == 0)
+	if (digit < 10)
 	{
-		ft_putstr_fd("0x0", 1);
-		return (3);
+		hex_char = digit + '0';
 	}
-	ft_putstr_fd("0x", 1);
-	len += 2;
-	len += ft_convert_hex(ln);
-	return (len);
+	else
+	{
+		hex_char = digit - 10 + 'a';
+	}
+	write(1, &hex_char, 1);
+	(*counter)++;
+}
+
+static void	print_value_as_hex(long unsigned value, size_t *counter)
+{
+	if (value >= 16)
+	{
+		print_value_as_hex(value / 16, counter);
+		print_value_as_hex(value % 16, counter);
+	}
+	else
+	{
+		print_hex_digit(value % 16, counter);
+	}
+}
+
+void	ft_putptr_ft(void *ptr, size_t *counter)
+{
+	long unsigned	address;
+
+	address = (long unsigned)ptr;
+	write(1, "0x", 2);
+	print_value_as_hex(address, counter);
 }
