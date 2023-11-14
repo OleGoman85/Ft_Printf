@@ -3724,6 +3724,123 @@
 // }
 
 
+
+// # include "ft_printf.h"
+
+
+
+// int	ft_putstr_ft(char *str, size_t *counter)
+// {
+// 	size_t	str_len;
+
+// 	str_len = 0;
+// 	if (!str)
+// 		return (1);
+// 	while (str[str_len] != '\0')
+// 		str_len++;
+// 	write(1, str, str_len);
+// 	(*counter += str_len);
+// 	return (0);
+// }
+
+// int	ft_putchar_ft(char c, size_t *counter)
+// {
+// 	if (write(1, &c, 1) == 1)
+// 	{
+// 		(*counter)++;
+// 		return ((unsigned char)c);
+// 	}
+// 	else
+// 		return (EOF);
+// }
+
+// void	ft_format(va_list ap, char *str, size_t *counter)
+// {
+// 	if (*str == '\0')
+// 		return ;
+// 	else if (*str == '%')
+// 		ft_putchar_ft('%', counter);
+// 	else if (*str == 'c')
+// 		ft_putchar_ft(va_arg(ap, int), counter);
+// 	else if (*str == 's')
+// 		ft_putstr_ft(va_arg(ap, char *), counter);
+// 	else if (*str == 'p')
+// 		ft_putptr_ft(va_arg(ap, void *), counter);
+// }
+
+// int	ft_printf(char const *format, ...)
+// {
+// 	va_list	ap;
+// 	size_t	counter;
+
+// 	if (!format)
+// 		return (-1);
+// 	counter = 0;
+// 	va_start(ap, format);
+// 	while (*format)
+// 	{
+// 		if (*format == '%')
+// 		{
+// 			format++;
+// 			ft_format(ap, (char *)format, &counter);
+// 		}
+// 		else
+// 		{
+// 			ft_putchar_ft(*format, &counter);
+// 		}
+// 		format++;
+// 	}
+// 	va_end(ap);
+// 	return (counter);
+// }
+
+// static void	print_hex_digit(int digit, size_t *counter)
+// {
+// 	char	hex_char;
+
+// 	if (digit < 10)
+// 	{
+// 		hex_char = digit + '0';
+// 	}
+// 	else
+// 	{
+// 		hex_char = digit - 10 + 'a';
+// 	}
+// 	write(1, &hex_char, 1);
+// 	(*counter)++;
+// }
+
+// static void	print_value_as_hex(long unsigned value, size_t *counter)
+// {
+// 	if (value >= 16)
+// 	{
+// 		print_value_as_hex(value / 16, counter);
+// 		print_value_as_hex(value % 16, counter);
+// 	}
+// 	else
+// 	{
+// 		print_hex_digit(value % 16, counter);
+// 	}
+// }
+
+// void	ft_putptr_ft(void *ptr, size_t *counter)
+// {
+// 	long unsigned	address;
+
+// 	address = (long unsigned)ptr;
+// 	write(1, "0x", 2);
+// 	print_value_as_hex(address, counter);
+// }
+
+// int main() {
+//     int a = 345;
+//     int *ptr = &a;
+
+//     ft_printf("%p\n", ptr);
+
+//     return 0;
+// }
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -3733,146 +3850,28 @@
 #include <stddef.h>
 #include <stdint.h>
 
-# include "ft_printf.h"
-
-
-
-int	ft_putstr_ft(char *str, size_t *counter)
-{
-	size_t	str_len;
-
-	str_len = 0;
-	if (!str)
-		return (1);
-	while (str[str_len] != '\0')
-		str_len++;
-	write(1, str, str_len);
-	(*counter += str_len);
-	return (0);
-}
-
-int	ft_putchar_ft(char c, size_t *counter)
+void	ft_putchar_ft(char c, size_t *counter)
 {
 	if (write(1, &c, 1) == 1)
 	{
 		(*counter)++;
-		return ((unsigned char)c);
 	}
-	else
-		return (EOF);
 }
 
-void	ft_format(va_list ap, char *str, size_t *counter)
+void	ft_putuni_ft(unsigned int num, size_t *counter)
 {
-	if (*str == '\0')
-		return ;
-	else if (*str == '%')
-		ft_putchar_ft('%', counter);
-	else if (*str == 'c')
-		ft_putchar_ft(va_arg(ap, int), counter);
-	else if (*str == 's')
-		ft_putstr_ft(va_arg(ap, char *), counter);
-	else if (*str == 'p')
-		ft_putptr_ft(va_arg(ap, void *), counter);
+	if (num / 10)
+	{
+		ft_putuni_ft(num / 10, counter);
+		ft_putchar_ft((num % 10) + '0', counter);
+	}
 }
 
-int	ft_printf(char const *format, ...)
+int main()
 {
-	va_list	ap;
-	size_t	counter;
-
-	if (!format)
-		return (-1);
-	counter = 0;
-	va_start(ap, format);
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			ft_format(ap, (char *)format, &counter);
-		}
-		else
-		{
-			ft_putchar_ft(*format, &counter);
-		}
-		format++;
-	}
-	va_end(ap);
-	return (counter);
-}
-
-static void	print_hex_digit(int digit, size_t *counter)
-{
-	char	hex_char;
-
-	if (digit < 10)
-	{
-		hex_char = digit + '0';
-	}
-	else
-	{
-		hex_char = digit - 10 + 'a';
-	}
-	write(1, &hex_char, 1);
-	(*counter)++;
-}
-
-static void	print_value_as_hex(long unsigned value, size_t *counter)
-{
-	if (value >= 16)
-	{
-		print_value_as_hex(value / 16, counter);
-		print_value_as_hex(value % 16, counter);
-	}
-	else
-	{
-		print_hex_digit(value % 16, counter);
-	}
-}
-
-void	ft_putptr_ft(void *ptr, size_t *counter)
-{
-	long unsigned	address;
-
-	address = (long unsigned)ptr;
-	write(1, "0x", 2);
-	print_value_as_hex(address, counter);
-}
-
-int main() {
-    int a = 345;
-    int *ptr = &a;
-
-    ft_printf("%p\n", ptr);
-
-    return 0;
+    ft_printf("%u\n", 65535);
+        return 0;
 }
 
 
 
-// int main() {
-//     size_t counter_lower = 0;
-//     size_t counter_upper = 0;
-
-//     void    *ptr;
-//     int    number;
-//     void    *ptr2;
-//     int     number2;
-
-//     number2 = 85616565;
-//     number = 42693664;
-//     ptr = &number;
-//     ptr2 = &number2;
-//     ft_putptr_ft(ptr, &counter_lower, 0); // lowercase
-//     write(1, " ", 1);
-//     printf("Total printed characters (lowercase): %zu\n", counter_lower);
-
-//     ft_putptr_ft(ptr2, &counter_upper, 1); // uppercase
-//     write(1, " ", 1);
-//     printf("Total printed characters (uppercase): %zu\n", counter_upper);
-//     printf("\n");
-//     printf("number %p", number);
-//     printf("number2 %p", number2);
-//     return 0;
-// }
