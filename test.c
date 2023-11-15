@@ -3850,27 +3850,81 @@
 #include <stddef.h>
 #include <stdint.h>
 
-void	ft_putchar_ft(char c, size_t *counter)
+
+#define HEX_LOW 0
+#define HEX_UPP 1
+
+void ft_putchar_ft(char c, size_t *counter) {
+    putchar(c);
+    (*counter)++;
+}
+
+void ft_puthex_ft(uintmax_t num, size_t *counter, int letter_case)
 {
-	if (write(1, &c, 1) == 1)
+    if (num >= 16)
+        ft_puthex_ft(num / 16, counter, letter_case);
+
+    if (letter_case == HEX_LOW)
+        ft_putchar_ft("0123456789abcdef"[num % 16], counter);
+    else if (letter_case == HEX_UPP)
+        ft_putchar_ft("0123456789ABCDEF"[num % 16], counter);
+}
+
+void	ft_format(va_list ap, char *str, size_t *counter)
+{
+	if (*str == '\0')
+		return ;
+	else if (*str == '%')
+		ft_putchar_ft('%', counter);
+	else if (*str == 'c')
+		ft_putchar_ft(va_arg(ap, int), counter);
+	else if (*str == 'x' || *str == 'X')
 	{
-		(*counter)++;
+		if (*str == 'x')
+			ft_puthex_ft(va_arg(ap, unsigned int), counter, HEX_LOW);
+		else
+			ft_puthex_ft(va_arg(ap, unsigned int), counter, HEX_UPP);
 	}
 }
 
-void	ft_putuni_ft(unsigned int num, size_t *counter)
+int ft_printf(const char *format, ...)
 {
-	if (num / 10)
-	{
-		ft_putuni_ft(num / 10, counter);
-		ft_putchar_ft((num % 10) + '0', counter);
-	}
+    va_list ap;
+    size_t counter;
+
+    if (!format)
+        return (-1);
+    counter = 0;
+    va_start(ap, format);
+    while (*format)
+    {
+        if (*format == '%')
+        {
+            format++;
+            ft_format(ap, (char *)format, &counter);
+        }
+        else
+        {
+            ft_putchar_ft(*format, &counter);
+        }
+        format++;
+    }
+    va_end(ap);
+    return (counter);
 }
 
-int main()
-{
-    ft_printf("%u\n", 65535);
-        return 0;
+int main() {
+
+    size_t counter_low = 0;
+    printf("Lowercase Hex: ");
+    ft_puthex_ft(9123967, &counter_low, HEX_LOW);
+    printf("\nCounter: %zu\n\n", counter_low);
+
+    size_t counter_upp = 0;
+    printf("Uppercase Hex: ");
+    ft_puthex_ft(123, &counter_upp, HEX_UPP);
+    printf("\nCounter: %zu\n\n", counter_upp);
+    return 0;
 }
 
 
