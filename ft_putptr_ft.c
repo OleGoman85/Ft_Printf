@@ -6,7 +6,7 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 12:08:28 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/13 14:57:35 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/16 14:16:18 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,13 @@ static void	print_hex_digit(int digit, size_t *counter)
 	(*counter)++;
 }
 
-static void	print_value_as_hex(long unsigned value, size_t *counter)
+static void	print_value_as_hex(uintptr_t value, size_t *counter)
 {
 	if (value >= 16)
 	{
 		print_value_as_hex(value / 16, counter);
-		print_value_as_hex(value % 16, counter);
 	}
-	else
-	{
-		print_hex_digit(value % 16, counter);
-	}
+	print_hex_digit(value % 16, counter);
 }
 
 void	ft_putptr_ft(void *ptr, size_t *counter)
@@ -47,5 +43,6 @@ void	ft_putptr_ft(void *ptr, size_t *counter)
 
 	address = (long unsigned)ptr;
 	write(1, "0x", 2);
+	*counter += 2;
 	print_value_as_hex(address, counter);
 }

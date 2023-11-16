@@ -6,7 +6,7 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:29:06 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/14 15:48:49 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/16 11:17:17 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,5 @@ void	ft_putuni_ft(unsigned int num, size_t *counter)
 	{
 		ft_putuni_ft(num / 10, counter);
 	}
-	if (num > 0)
-	{
-		ft_putchar_ft((num % 10) + '0', counter);
-	}
+	ft_putchar_ft((num % 10) + '0', counter);
 }

@@ -6,9 +6,12 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:03:43 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/14 15:55:52 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/16 10:16:58 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
+#include <unistd.h>
 
 #include "ft_printf.h"
 #include <unistd.h>
@@ -35,17 +38,14 @@ void	ft_putnbr_ft(int num, size_t *counter)
 		ft_max_min(counter);
 		return ;
 	}
-	if (num < 0 && num > -2147483648)
+	if (num < 0)
 	{
 		ft_putchar_ft('-', counter);
 		num = -num;
 	}
 	if (num / 10)
 	{
-		ft_putuni_ft(num / 10, counter);
+		ft_putnbr_ft(num / 10, counter);
 	}
-	if (num > 0)
-	{
-		ft_putchar_ft((num % 10) + '0', counter);
-	}
+	ft_putchar_ft((num % 10) + '0', counter);
 }
