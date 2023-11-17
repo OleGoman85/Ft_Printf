@@ -6,15 +6,11 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 07:03:43 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/16 10:16:58 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/17 06:48:24 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
-
-#include "ft_printf.h"
-#include <unistd.h>
 
 static void	ft_max_min(size_t *counter)
 {

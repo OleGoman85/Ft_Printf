@@ -6,12 +6,11 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 07:18:33 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/14 12:35:01 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/17 06:48:34 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
 
 void	ft_putchar_ft(char c, size_t *counter)
 {
