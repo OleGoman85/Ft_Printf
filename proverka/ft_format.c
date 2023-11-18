@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_format.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 15:58:57 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/18 08:55:01 by ogoman           ###   ########.fr       */
+/*   Created: 2023/11/18 11:50:34 by ogoman            #+#    #+#             */
+/*   Updated: 2023/11/18 13:01:57 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,37 +36,4 @@ int	ft_format(va_list ap, char *str, size_t *counter)
 			ft_puthex_ft(va_arg(ap, unsigned int), counter, HEX_UPP);
 	}
 	return (0);
-}
-
-static int	ft_printf_cleanup(va_list ap, int result)
-{
-	va_end(ap);
-	return (result);
-}
-
-int	ft_printf(char const *format, ...)
-{
-	va_list	ap;
-	size_t	counter;
-
-	if (!format)
-		return (-1);
-	counter = 0;
-	va_start(ap, format);
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			if (ft_format(ap, (char *)format, &counter) == -1)
-				return (ft_printf_cleanup(ap, -1));
-		}
-		else
-		{
-			if (ft_putchar_ft(*format, &counter) == -1)
-				return (ft_printf_cleanup(ap, -1));
-		}
-		format++;
-	}
-	return (ft_printf_cleanup(ap, counter));
 }

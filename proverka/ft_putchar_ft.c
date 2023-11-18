@@ -6,21 +6,21 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 07:18:33 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/18 08:30:52 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/18 07:02:15 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar_ft(char c, size_t *counter)
+int ft_putchar_ft(char c, size_t *counter)
 {
-	if (write(1, &c, 1) == 1)
-	{
-		(*counter)++;
-		return (0);
-	}
-	else
-	{
-		return (-1);
-	}
+    if (write(1, &c, 1) == 1)
+    {
+        (*counter)++;
+        return 0;
+    }
+    else
+    {
+        return -1;
+    }
 }

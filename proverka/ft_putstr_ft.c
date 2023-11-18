@@ -6,7 +6,7 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 09:09:40 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/18 08:40:54 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/18 07:00:17 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,23 @@ static int	handle_null_str(size_t *counter)
 	return (0); // maybe -1?
 }
 
-int	ft_putstr_ft(char *str, size_t *counter)
+int ft_putstr_ft(char *str, size_t *counter)
 {
-	size_t	str_len;
+    size_t str_len;
 
-	str_len = 0;
-	if (!str)
-	{
-		return (handle_null_str(counter));
-	}
-	while (str[str_len] != '\0')
-	{
-		if (write(1, &str[str_len], 1) == -1)
-			return (-1);
-		str_len++;
-	}
-	*counter += str_len;
-	return (0);
+    str_len = 0;
+    if (!str)
+    {
+        return handle_null_str(counter);
+    }
+    while (str[str_len] != '\0')
+    {
+        if (write(1, &str[str_len], 1) == -1)
+        {
+            return -1;
+        }
+        str_len++;
+    }
+    *counter += str_len;
+    return 0;
 }
-
-// int	ft_putstr_ft(char *str, size_t *counter)
-// {
-// 	size_t	str_len;
-
-// 	str_len = 0;
-// 	if (!str)
-// 		return (handle_null_str(counter));
-// 	while (str[str_len] != '\0')
-// 		str_len++;
-// 	write(1, str, str_len);
-// 	(*counter += str_len);
-// 	return (0);
-// }

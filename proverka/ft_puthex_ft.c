@@ -6,7 +6,7 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:38:46 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/18 08:31:39 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/18 06:43:35 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,3 @@ int	ft_puthex_ft(unsigned int num, size_t *counter, int letter_case)
 		return (-1);
 	return (0);
 }
-
-// int	ft_puthex_ft(unsigned int num, size_t *counter, int letter_case)
-// {
-// 	if (num >= 16)
-// 		ft_puthex_ft(num / 16, counter, letter_case);
-// 	if (letter_case == HEX_LOW)
-// 		ft_putchar_ft("0123456789abcdef"[num % 16], counter);
-// 	else if (letter_case == HEX_UPP)
-// 		ft_putchar_ft("0123456789ABCDEF"[num % 16], counter);
-// }
