@@ -5,7 +5,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRC_FILES = ft_printf.c ft_putchar_ft.c ft_putstr_ft.c ft_putptr_ft.c ft_putnbr_ft.c \
-ft_putuni_ft.c ft_puthex_ft.c
+ft_putuni_ft.c ft_puthex_ft.c ft_format.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
