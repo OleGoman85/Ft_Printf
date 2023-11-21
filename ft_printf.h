@@ -6,7 +6,7 @@
 /*   By: ogoman <ogoman@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 07:49:37 by ogoman            #+#    #+#             */
-/*   Updated: 2023/11/20 08:31:07 by ogoman           ###   ########.fr       */
+/*   Updated: 2023/11/21 08:00:28 by ogoman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_putstr_ft(char *str, size_t *counter);
 int		ft_putptr_ft(void *ptr, size_t *counter);
 int		ft_putnbr_ft(int num, size_t *counter);
 int		ft_putuni_ft(unsigned int num, size_t *counter);
-int		ft_puthex_ft(unsigned int num, size_t *counter, char str);
+int		ft_puthex_ft(unsigned int num, size_t *counter, int letter_case);
 int		ft_format(va_list ap, char *str, size_t *counter);
 
 #endif
